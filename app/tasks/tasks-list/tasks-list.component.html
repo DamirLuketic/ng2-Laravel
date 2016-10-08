@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-5">
+    <ul>
+      <ts-task-item *ngFor="let task of tasks" [task]="task" [taskId]="task.id"></ts-task-item>
+    </ul>
+  </div>
+  <div class="col-md-7">
+    <ts-task-detail></ts-task-detail>
+  </div>
+</div>

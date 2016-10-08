@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Task } from '../../shared/task';
 
 @Component({
   selector: 'ts-task-detail',
-  template: `
-    <p>
-      task-detail Works!
-    </p>
-  `,
-  styles: []
+  templateUrl: './task-detail.component.html',
+  styleUrls: ['./task-detail.component.css']
 })
 export class TaskDetailComponent implements OnInit {
 
-  constructor() { }
+  @Input() task: Task;
 
   ngOnInit() {
   }
