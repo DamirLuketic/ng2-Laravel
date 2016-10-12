@@ -3,7 +3,6 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {UserService} from "../../shared/user.service";
 import {Router} from "@angular/router";
 import {User} from "../../shared/user";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'ts-login',
@@ -17,14 +16,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: ['', Validators.required]
   });
 
-  private subscribe: Subscription;
-
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router) { }
 
   onSubmit(){
-    this.subscribe = this.userService.login(this.loginForm.value.email, this.loginForm.value.password)
+    this.userService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe(
             (data: User) => {
               this.userService.userAuth = data ? +data['id'] : 0,
@@ -38,7 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.subscribe.unsubscribe();
   }
 
 }

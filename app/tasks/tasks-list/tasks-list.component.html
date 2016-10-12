@@ -1,5 +1,8 @@
 <div class="row">
   <div class="col-md-5">
+    <!-- show this button only if current action is not creatin new task -->
+    <button class="btn btn-info" (click)="goToNew()" *ngIf="!isNew()">New Task</button>
+    <br /><br />
     <ul>
       <ts-task-item *ngFor="let task of tasks" [task]="task" [taskId]="task.id"></ts-task-item>
     </ul>

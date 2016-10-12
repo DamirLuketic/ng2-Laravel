@@ -5,7 +5,7 @@ import { TasksService } from "../../shared/tasks.service";
 @Component({
   selector: 'ts-task-item',
   template: `
-<a class="list-group-item clearfix" style="cursor: pointer;" routerLinkActive="active" [routerLink]="['description', task.id]">
+<a class="list-group-item clearfix" style="cursor: pointer;" routerLinkActive="active" (click)="setTask()" [routerLink]="['description', task.id]">
   <div class="pull-left">
     <h4 class="list-group-item-heading">{{task.name}}</h4>
     <p class="list-group-item-text">End date: {{task.end_date}}</p>
@@ -22,6 +22,11 @@ export class TaskItemComponent implements OnInit {
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
+  }
+
+  // on click set this task as current task
+  setTask(){
+    this.tasksService.currentTask = this.task;
   }
 
 }

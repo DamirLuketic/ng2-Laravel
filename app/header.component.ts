@@ -26,7 +26,7 @@ import {UserService} from "./shared/user.service";
           <ul class="dropdown-menu">
             <li><a style="cursor: pointer;" *ngIf="isActive() == 0" [routerLink]="['/register']">Register</a></li>
             <li><a style="cursor: pointer;" *ngIf="isActive() == 0" [routerLink]="['/login']">LogIn</a></li>
-            <li><a style="cursor: pointer;" *ngIf="isActive() != 0">LogOut</a></li>
+            <li><a style="cursor: pointer;" *ngIf="isActive() != 0" [routerLink]="['/logout']">LogOut</a></li>
           </ul>
         </li>
       </ul>
