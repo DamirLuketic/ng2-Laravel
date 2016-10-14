@@ -24,26 +24,26 @@ export class TasksService {
   getTasks(userId: number){
     const body = JSON.stringify(this.tasks);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://www.consilium-europa.com/pages/laravel_rest_api/public/api/tasks/' + this.userService.userAuth,
+    return this.http.post('http://localhost/laravel_rest_api/public/api/tasks/' + this.userService.userAuth,
                           body, {'headers': headers}).map((data: Response) => data.json());
   };
 
   editTask(task: Task){
     const body = JSON.stringify(task);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.put('http://www.consilium-europa.com/pages/laravel_rest_api/public/api/edit_task/' + task, body, {headers: headers})
+    return this.http.put('http://localhost/laravel_rest_api/public/api/edit_task/' + task, body, {headers: headers})
         .map((response: Response) => response.json());
   }
 
     deleteTask(id: number){
-        return this.http.delete('http://www.consilium-europa.com/pages/laravel_rest_api/public/api/delete_task/' + id)
+        return this.http.delete('http://localhost/laravel_rest_api/public/api/delete_task/' + id)
             .map((response: Response) => response.json());
     }
 
     createTask(new_task: NewTask){
       const body = JSON.stringify(new_task);
       const headers = new Headers({'Content-Type': 'application/json'});
-      return this.http.post('http://www.consilium-europa.com/pages/laravel_rest_api/public/api/create_task/' + new_task, body, {headers: headers})
+      return this.http.post('http://localhost/laravel_rest_api/public/api/create_task/' + new_task, body, {headers: headers})
           .map((response: Response) => response.json());
     }
 }

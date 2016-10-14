@@ -18,14 +18,14 @@ export class UserService {
   login(email: string, password: string){
     const body = JSON.stringify(this.user);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://www.consilium-europa.com/pages/laravel_rest_api/public/api/user/' + email + '/' + password, body, {headers: headers})
+    return this.http.post('http://localhost/laravel_rest_api/public/api/user/' + email + '/' + password, body, {headers: headers})
         .map((data: Response) => data.json());
   }
 
   register(name: string, email: string, password: string){
     const body = JSON.stringify(this.userForRegister);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://www.consilium-europa.com/pages/laravel_rest_api/public/api/register/' + name + '/' + email + '/' + password, body, {headers: headers})
+    return this.http.post('http://localhost/laravel_rest_api/public/api/register/' + name + '/' + email + '/' + password, body, {headers: headers})
         .map((response: Response) => response.json());
   }
 
