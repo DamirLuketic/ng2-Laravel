@@ -14,7 +14,7 @@ import {UserService} from "./shared/user.service";
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a *ngIf="isActive() != 0" [routerLink]="['/tasks', 'list']">Tasks List</a></li>
+        <li routerLinkActive="active"><a *ngIf="isActive() != 0" [routerLink]="['/tasks', 'list']">Tasks organizer</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" tsdropdown>
@@ -24,8 +24,7 @@ import {UserService} from "./shared/user.service";
             aria-haspopup="true"
             aria-expanded="false">Users<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a style="cursor: pointer;" *ngIf="isActive() == 0" [routerLink]="['/register']">Register</a></li>
-            <li><a style="cursor: pointer;" *ngIf="isActive() == 0" [routerLink]="['/login']">LogIn</a></li>
+            <li><a style="cursor: pointer;" *ngIf="isActive() == 0" [routerLink]="['/loginRegister']">Login\\Register</a></li>
             <li><a style="cursor: pointer;" *ngIf="isActive() != 0" [routerLink]="['/logout']">LogOut</a></li>
           </ul>
         </li>

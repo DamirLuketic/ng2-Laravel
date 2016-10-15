@@ -11,19 +11,19 @@ export class UserService {
   public user: User;
 
   // example string -> without values
-  public userForRegister: string[];
+  public userForLoginRegister: string[];
 
   constructor(private http: Http) {}
 
   login(email: string, password: string){
-    const body = JSON.stringify(this.user);
+    const body = JSON.stringify(this.userForLoginRegister);
     const headers = new Headers({'Content-Type' : 'application/json'});
     return this.http.post('http://localhost/laravel_rest_api/public/api/user/' + email + '/' + password, body, {headers: headers})
         .map((data: Response) => data.json());
   }
 
   register(name: string, email: string, password: string){
-    const body = JSON.stringify(this.userForRegister);
+    const body = JSON.stringify(this.userForLoginRegister);
     const headers = new Headers({'Content-Type' : 'application/json'});
     return this.http.post('http://localhost/laravel_rest_api/public/api/register/' + name + '/' + email + '/' + password, body, {headers: headers})
         .map((response: Response) => response.json());

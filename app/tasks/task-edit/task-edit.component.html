@@ -24,7 +24,7 @@
         <div class="col-xs-12">
           <div class="form-group">
             <label for="end_date">End date</label>
-            <input type="date" id="end_date" class="form-control" formControlName="end_date">
+            <input type="date" id="end_date" class="form-control" formControlName="end_date" min="{{taskEditForm.value.start_date}}">
           </div>
         </div>
       </div>

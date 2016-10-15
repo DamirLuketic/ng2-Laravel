@@ -33,15 +33,18 @@ export class LoginRegisterComponent {
 
   public loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]],
-    password: ['', Validators.required]
+    password: ['', Validators.required],
+    remember: []
   });
 
   onSubmitLogin(){
+
     this.userService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe(
             (data: User) => {
               this.userService.userAuth = data ? +data['id'] : 0,
                   this.userService.user = data,
+                  this.loginForm.value.remember != null ? alert('it is') : alert('not'),
                   data ? this.router.navigate(['/home']) : alert('Wrong e-mail/password')
             }
         );
