@@ -27,6 +27,12 @@ export class TaskNewComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
+    // redirect to home page if user is not logged
+    if(this.userService.userAuth == 0){
+      this.router.navigate(['/home']);
+    }
+
     this.newTaskForm = this.formBuilder.group({
       user_id: [this.userService.userAuth, Validators.required],
       name: ['', Validators.required],
@@ -42,7 +48,8 @@ export class TaskNewComponent implements OnInit, OnDestroy {
         (data: string) => {
           console.log(data)
           this.router.navigate(['/tasks/list']);
-        }
+        },
+        (error: any) => console.log(error)
     );
   }
 

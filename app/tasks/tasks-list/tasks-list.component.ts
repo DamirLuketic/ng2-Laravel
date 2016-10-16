@@ -26,11 +26,17 @@ export class TasksListComponent implements OnInit, OnDestroy {
   // then return this data into local variable "tasks"
 
   ngOnInit(){
+    // redirect to home page if user is not logged
+    if(this.userService.userAuth == 0){
+      this.router.navigate(['/home']);
+    }
+
       this.subscription = this.taskService.getTasks(this.userService.userAuth).subscribe(
         (data: Task[]) => {
           this.taskService.tasks = data,
               this.tasks = this.taskService.tasks
-        }
+        },
+          (error: any) => console.log(error)
       )
     }
 

@@ -18,6 +18,8 @@ import {TaskEditComponent} from "./tasks/task-edit/task-edit.component";
 import {LogoutComponent} from "./user/logout/logout.component";
 import {TaskNewComponent} from "./tasks/task-new/task-new.component";
 import {LoginRegisterComponent} from "./user/login-register/login-register.component";
+import {CookieService} from "angular2-cookie/services/cookies.service";
+import { LeavePageWarningGuard } from "./shared/leavePageWarning";
 
 @NgModule({
   declarations: [
@@ -41,7 +43,7 @@ import {LoginRegisterComponent} from "./user/login-register/login-register.compo
     ReactiveFormsModule,
     routing
   ],
-  providers: [UserService, TasksService],
+  providers: [UserService, TasksService, CookieService, LeavePageWarningGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

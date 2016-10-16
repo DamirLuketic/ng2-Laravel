@@ -3,6 +3,7 @@ import {User} from "../../shared/user";
 import {Router} from "@angular/router";
 import {UserService} from "../../shared/user.service";
 import {Validators, FormBuilder} from "@angular/forms";
+import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @Component({
   selector: 'ts-login-register',
@@ -17,7 +18,9 @@ export class LoginRegisterComponent {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private cookieService: CookieService
+  ) { }
 
 
   toRegister(){
@@ -42,11 +45,14 @@ export class LoginRegisterComponent {
     this.userService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe(
             (data: User) => {
+              // if retrive user -> set user id
               this.userService.userAuth = data ? +data['id'] : 0,
-                  this.userService.user = data,
-                  this.loginForm.value.remember != null ? alert('it is') : alert('not'),
-                  data ? this.router.navigate(['/home']) : alert('Wrong e-mail/password')
-            }
+              // if it is selected option remember -> set cookie and value to user data, else, set value to user
+              this.loginForm.value.remember != null ? (this.userService.user = this.cookieService.putObject('user', data)) : this.userService.user = data
+              data ? this.router.navigate(['/home']) : alert('Wrong e-mail/password')
+            },
+            // show error
+            error => console.log(error),
         );
   };
 
@@ -69,7 +75,8 @@ export class LoginRegisterComponent {
       this.userService.register(this.registerForm.value.name, this.registerForm.value.email, this.registerForm.value.password).subscribe(
           (answer: any) => {
             answer == 'Confirm e-mail to activate account' ? this.onSuccess(answer) : alert(answer);
-          }
+          },
+          error => console.log(error)
       );
     }else{
       alert("Password and repeated password don't match.")

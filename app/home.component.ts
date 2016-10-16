@@ -4,6 +4,7 @@ import { User } from "./shared/user";
 import {TasksService} from "./shared/tasks.service";
 import { Task } from "./shared/task";
 import { Subscription } from "rxjs";
+import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @Component({
   selector: 'ts-home',
@@ -17,10 +18,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = null;
 
   constructor(private userService: UserService,
-              private tasksService: TasksService
+              private tasksService: TasksService,
+              private cookieService: CookieService
   ) { }
 
+  // function that convert nay value to number -> usage for catch data
+  convertToNumber(value: string){
+    return parseInt(value);
+  }
+
   ngOnInit() {
+
+    if(this.cookieService.getObject('user') != null){
+      this.userService.user = this.cookieService.getObject('user');
+      this.userService.userAuth = this.convertToNumber(this.userService.user.id);
+    }
+
     this.user = this.userService.user;
 
   // if user is logged
@@ -31,7 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       if(this.tasksService.tasks == null){
         this.subscription = this.tasksService.getTasks(this.user.id).subscribe(
             (data: Task[]) => this.tasks = data
-        );
+        ),
+            (error: any) => console.log(error)
       }else{
         this.tasks = this.tasksService.tasks;
       }

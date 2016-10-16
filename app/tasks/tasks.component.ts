@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../shared/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ts-tasks',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+      private userService: UserService,
+      private router: Router
+  ) { }
 
   ngOnInit() {
+    // redirect to home page if user is not logged
+    if(this.userService.userAuth == 0){
+      this.router.navigate(['/home']);
+    }
   }
 
 }

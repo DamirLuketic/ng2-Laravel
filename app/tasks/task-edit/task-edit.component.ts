@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {TasksService} from "../../shared/tasks.service";
 
 import { Task } from '../../shared/task';
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
+import {UserService} from "../../shared/user.service";
+import {AlertUserClass} from "../../shared/leavePageWarning";
+import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'ts-task-edit',
   templateUrl: './task-edit.component.html',
   styleUrls: ['./task-edit.component.css']
 })
-export class TaskEditComponent implements OnInit {
+export class TaskEditComponent implements OnInit, OnDestroy, AlertUserClass {
 
   public task: Task = null;
+
+  // variable for test if value changes is saved
+  private isSaved: boolean = false;
 
   // create default data for form -> add "id" and "user_id" to fit class "Task"
   public id: number = null;
@@ -29,11 +36,18 @@ export class TaskEditComponent implements OnInit {
   public taskEditForm: FormGroup;
 
   constructor(private tasksService: TasksService,
+              private userService: UserService,
               private formBuilder: FormBuilder,
               private router: Router
   ) { }
 
   ngOnInit() {
+
+    // redirect to home page if user is not logged
+    if(this.userService.userAuth == 0){
+      this.router.navigate(['/home']);
+    }
+
     this.task = this.tasksService.currentTask;
 
     // if task is not new -> add value from task into form
@@ -64,12 +78,14 @@ export class TaskEditComponent implements OnInit {
   }
 
   onSubmit(){
+    this.isSaved = true;
     const editTask = this.taskEditForm.value;
     this.tasksService.editTask(editTask).subscribe(
         (data: string) => {
               console.log(data),
               this.router.navigate(['/tasks/list']);
-        }
+        },
+        (error: any) => console.log(error)
     );
   };
 
@@ -78,8 +94,27 @@ export class TaskEditComponent implements OnInit {
         (data: any) => {
               console.log(data),
               this.router.navigate(['/tasks/list']);
-        }
+        },
+        (error: any) => console.log(error)
     );
+  }
+
+  // function for saving changes and return true -> function used in Guardien
+  saveAndLeave(){
+    this.onSubmit();
+    return true;
+  }
+
+  alertUserFunction(): Observable<boolean> | boolean {
+    if(this.taskEditForm.dirty){
+      return confirm('Changes are not saved, do you want to save changes before leave?') === true ? this.saveAndLeave() : true;
+    }else {
+      return true;
+    }
+  }
+
+  ngOnDestroy(){
+
   }
 
 }

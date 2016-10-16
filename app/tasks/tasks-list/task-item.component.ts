@@ -1,6 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Task} from "../../shared/task";
 import { TasksService } from "../../shared/tasks.service";
+import {UserService} from "../../shared/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ts-task-item',
@@ -19,9 +21,15 @@ export class TaskItemComponent implements OnInit {
   @Input() public taskId: number = 0;
   @Input() public task: Task;
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService,
+              private userService: UserService,
+              private router: Router
+  ) { }
 
   ngOnInit() {
+    if(this.userService.userAuth == 0){
+      this.router.navigate(['/home']);
+    }
   }
 
   // on click set this task as current task

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import { Task } from '../../shared/task';
 import {TasksService} from "../../shared/tasks.service";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import {UserService} from "../../shared/user.service";
 
 @Component({
   selector: 'ts-task-description',
@@ -28,11 +29,16 @@ export class TaskDescriptionComponent implements OnInit, DoCheck {
 
   constructor(private activatedRoute: ActivatedRoute,
               private tasksService: TasksService,
+              private userService: UserService,
               private formBuilder: FormBuilder,
               private router: Router
   ) {}
 
   ngOnInit() {
+    // redirect to home page if user is not logged
+    if(this.userService.userAuth == 0){
+      this.router.navigate(['/home']);
+    }
   }
 
   // ngDoCheck -> check changes in selected params

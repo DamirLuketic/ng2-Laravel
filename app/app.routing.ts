@@ -7,7 +7,7 @@ import {LoginRegisterComponent} from "./user/login-register/login-register.compo
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'tasks', component: TasksComponent},
+    { path: 'tasks', component: TasksComponent },
     { path: 'tasks', component: TasksComponent, children: TASKS_ROUTES},
     { path: 'logout', component: LogoutComponent},
     { path: 'loginRegister', component: LoginRegisterComponent },
