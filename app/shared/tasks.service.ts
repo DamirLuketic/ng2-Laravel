@@ -13,6 +13,9 @@ export class TasksService {
   public tasks: Task[] = null;
   public currentTask: Task = null;
 
+  // rout route for REST API
+  private route: string = 'http://localhost/laravel_rest_api/';
+
   // value for testing if we current create new task
   public newTask: boolean = false;
 
@@ -30,7 +33,7 @@ export class TasksService {
   getTasks(userId: number){
     const body = JSON.stringify(this.tasks);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost/laravel_rest_api/public/api/tasks/' + this.userService.userAuth,
+    return this.http.post(this.route + 'public/api/tasks/' + this.userService.userAuth,
                           body, {'headers': headers}).map((data: Response) => data.json())
         .catch(this.handleError);
   };
@@ -38,13 +41,13 @@ export class TasksService {
   editTask(task: Task){
     const body = JSON.stringify(task);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.put('http://localhost/laravel_rest_api/public/api/edit_task/' + task, body, {headers: headers})
+    return this.http.put(this.route + 'public/api/edit_task/' + task, body, {headers: headers})
         .map((response: Response) => response.json())
         .catch(this.handleError);
   }
 
     deleteTask(id: number){
-        return this.http.delete('http://localhost/laravel_rest_api/public/api/delete_task/' + id)
+        return this.http.delete(this.route + 'public/api/delete_task/' + id)
             .map((response: Response) => response.json())
             .catch(this.handleError);
     }
@@ -52,7 +55,7 @@ export class TasksService {
     createTask(new_task: NewTask){
       const body = JSON.stringify(new_task);
       const headers = new Headers({'Content-Type': 'application/json'});
-      return this.http.post('http://localhost/laravel_rest_api/public/api/create_task/' + new_task, body, {headers: headers})
+      return this.http.post(this.route + 'public/api/create_task/' + new_task, body, {headers: headers})
           .map((response: Response) => response.json())
           .catch(this.handleError);
     }

@@ -5,6 +5,7 @@ import {TasksService} from "./shared/tasks.service";
 import { Task } from "./shared/task";
 import { Subscription } from "rxjs";
 import {CookieService} from "angular2-cookie/services/cookies.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ts-home',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
               private tasksService: TasksService,
-              private cookieService: CookieService
+              private cookieService: CookieService,
+              private router: Router
   ) { }
 
   // function that convert nay value to number -> usage for catch data
@@ -31,10 +33,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if(this.cookieService.getObject('user') != null){
       this.userService.user = this.cookieService.getObject('user');
-      this.userService.userAuth = this.convertToNumber(this.userService.user.id);
-    }
+    this.userService.userAuth = this.convertToNumber(this.userService.user.id);
+  }
 
-    this.user = this.userService.user;
+  this.user = this.userService.user;
 
   // if user is logged
     if(this.user != null){
@@ -81,6 +83,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   // set globally -> new task is in creating
   setNewTask(){
     this.tasksService.newTask = true;
+  }
+
+  loginRegister(){
+    this.router.navigate(['/loginRegister'])
   }
 
   ngOnDestroy(){

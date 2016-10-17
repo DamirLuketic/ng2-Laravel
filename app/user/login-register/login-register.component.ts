@@ -36,7 +36,7 @@ export class LoginRegisterComponent {
 
   public loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(6)]],
     remember: []
   });
 

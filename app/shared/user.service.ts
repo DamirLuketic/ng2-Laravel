@@ -4,12 +4,16 @@ import {Http, Headers, Response} from "@angular/http";
 import 'rxjs/Rx';
 import { User } from "./user";
 import { Observable } from "rxjs";
+import {Contact} from "./contact";
 
 @Injectable()
 export class UserService {
 
   public userAuth: number = 0;
-  public user;
+  public user = null;
+
+  // rout route for REST API
+  private route: string = 'http://localhost/laravel_rest_api/';
 
   // example string -> without values
   public userForLoginRegister: string[];
@@ -24,7 +28,7 @@ export class UserService {
   login(email: string, password: string){
     const body = JSON.stringify(this.userForLoginRegister);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost/laravel_rest_api/public/api/user/' + email + '/' + password, body, {headers: headers})
+    return this.http.post(this.route + 'public/api/user/' + email + '/' + password, body, {headers: headers})
         .map((data: Response) => data.json())
         .catch(this.handleError);
   }
@@ -32,7 +36,7 @@ export class UserService {
   register(name: string, email: string, password: string){
     const body = JSON.stringify(this.userForLoginRegister);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost/laravel_rest_api/public/api/register/' + name + '/' + email + '/' + password, body, {headers: headers})
+    return this.http.post(this.route + 'public/api/register/' + name + '/' + email + '/' + password, body, {headers: headers})
         .map((response: Response) => response.json())
         .catch(this.handleError);
   }
@@ -40,6 +44,14 @@ export class UserService {
   logout(){
     this.userAuth = 0;
     this.user = null;
+  }
+
+  contactSendMail(contact: Contact){
+    const body = JSON.stringify(contact);
+    const headers = new Headers({'Content-Type' : 'application/json'});
+    return this.http.post(this.route + 'public/api/ssend_mail/' + contact, body, {headers: headers})
+        .map((response: Response) => response.json())
+        .catch(this.handleError);
   }
 
 }

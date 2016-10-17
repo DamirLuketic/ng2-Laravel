@@ -20,6 +20,8 @@ import {TaskNewComponent} from "./tasks/task-new/task-new.component";
 import {LoginRegisterComponent} from "./user/login-register/login-register.component";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 import { LeavePageWarningGuard } from "./shared/leavePageWarning";
+import {FooterComponent} from "./footer.component";
+import {ContactComponent} from "./contact/contact.component";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { LeavePageWarningGuard } from "./shared/leavePageWarning";
     TaskEditComponent,
     LogoutComponent,
     TaskNewComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    FooterComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
