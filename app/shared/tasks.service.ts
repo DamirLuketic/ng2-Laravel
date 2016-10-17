@@ -13,8 +13,9 @@ export class TasksService {
   public tasks: Task[] = null;
   public currentTask: Task = null;
 
-  // rout route for REST API
+  // rout route for REST API - local \ net
   private route: string = 'http://localhost/laravel_rest_api/';
+  // private route: string = 'http://consilium-europa.com/pages/laravel_rest_api/';
 
   // value for testing if we current create new task
   public newTask: boolean = false;

@@ -12,8 +12,9 @@ export class UserService {
   public userAuth: number = 0;
   public user = null;
 
-  // rout route for REST API
+  // rout route for REST API - local \ net
   private route: string = 'http://localhost/laravel_rest_api/';
+  // private route: string = 'http://consilium-europa.com/pages/laravel_rest_api/';
 
   // example string -> without values
   public userForLoginRegister: string[];
@@ -49,7 +50,7 @@ export class UserService {
   contactSendMail(contact: Contact){
     const body = JSON.stringify(contact);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post(this.route + 'public/api/ssend_mail/' + contact, body, {headers: headers})
+    return this.http.post(this.route + 'public/api/send_mail/' + contact, body, {headers: headers})
         .map((response: Response) => response.json())
         .catch(this.handleError);
   }
